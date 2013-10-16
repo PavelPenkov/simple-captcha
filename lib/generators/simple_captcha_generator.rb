@@ -2,7 +2,7 @@ require 'rails/generators'
 
 class SimpleCaptchaGenerator < Rails::Generators::Base
   include Rails::Generators::Migration
-                          
+
   def self.source_root
     @source_root ||= File.expand_path(File.join(File.dirname(__FILE__), 'templates/'))
   end
@@ -12,10 +12,14 @@ class SimpleCaptchaGenerator < Rails::Generators::Base
   end
   
   def create_partial
-    template "partial.erb", File.join('app/views', 'simple_captcha', "_simple_captcha.erb")
+    template "partial.erb", File.join('app', 'views', 'simple_captcha', "_simple_captcha.erb")
   end
   
   def create_migration
-    migration_template "migration.rb", File.join('db/migrate', "create_simple_captcha_data.rb")
+    migration_template "migration.rb", File.join('db', 'migrate', "create_simple_captcha_data.rb")
+  end
+
+  def create_stylesheet
+    copy_file "stylesheet.css", File.join("app", "assets", "stylesheets", "simple_captcha.css")
   end
 end
